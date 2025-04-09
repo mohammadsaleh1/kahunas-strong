@@ -3,16 +3,19 @@ import { StyleSheet, View, Text, TouchableOpacity, Image, KeyboardAvoidingView, 
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
 import { CustomTextInput } from '../../components/TextInput';
+import { useRouter } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
     console.log('Login attempt with:', email, password);
+    router.replace('/(tabs)');
   };
 
   return (
