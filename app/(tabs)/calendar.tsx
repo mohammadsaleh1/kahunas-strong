@@ -1,0 +1,223 @@
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, Platform } from 'react-native';
+import { Calendar as RNCalendar } from 'react-native-calendars';
+import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '../../constants/Colors';
+
+export default function Calendar() {
+  const [selectedView, setSelectedView] = useState<'month' | 'list'>('month');
+  const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleString('default', { month: 'long' }));
+  
+  return (
+    <>
+      <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.whiteBackground}>
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <View style={styles.headerContent}>
+                <Text style={styles.title}>Calendar</Text>
+                <View style={styles.headerButtons}>
+                  <TouchableOpacity style={styles.filterButton}>
+                    <Ionicons name="funnel-outline" size={20} color={Colors.primary} />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.requestButton}>
+                    <Text style={styles.requestButtonText}>Request Event</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.calendarHeader}>
+              <View style={styles.monthSelector}>
+                <TouchableOpacity style={styles.arrowButton}>
+                  <Ionicons name="chevron-back" size={24} color="#333333" />
+                </TouchableOpacity>
+                <Text style={styles.monthText}>{currentMonth}</Text>
+                <TouchableOpacity style={styles.arrowButton}>
+                  <Ionicons name="chevron-forward" size={24} color="#333333" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.viewToggle}>
+                <TouchableOpacity 
+                  style={[styles.toggleButton, selectedView === 'month' && styles.toggleButtonActive]}
+                  onPress={() => setSelectedView('month')}
+                >
+                  <Text style={[styles.toggleText, selectedView === 'month' && styles.toggleTextActive]}>Month</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={[styles.toggleButton, selectedView === 'list' && styles.toggleButtonActive]}
+                  onPress={() => setSelectedView('list')}
+                >
+                  <Text style={[styles.toggleText, selectedView === 'list' && styles.toggleTextActive]}>List</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.content}>
+              <RNCalendar
+                style={styles.calendar}
+                theme={{
+                  backgroundColor: '#FFFFFF',
+                  calendarBackground: '#FFFFFF',
+                  textSectionTitleColor: '#666666',
+                  selectedDayBackgroundColor: Colors.primary,
+                  selectedDayTextColor: '#FFFFFF',
+                  todayTextColor: Colors.primary,
+                  dayTextColor: '#333333',
+                  textDisabledColor: '#D9D9D9',
+                  dotColor: Colors.primary,
+                  selectedDotColor: '#FFFFFF',
+                  arrowColor: Colors.primary,
+                  monthTextColor: '#333333',
+                  textDayFontSize: 14,
+                  textMonthFontSize: 16,
+                  textDayHeaderFontSize: 14
+                }}
+                onMonthChange={(month) => {
+                  setCurrentMonth(new Date(month.timestamp).toLocaleString('default', { month: 'long' }));
+                }}
+                enableSwipeMonths={true}
+                markingType={'dot'}
+                markedDates={{
+                  '2024-04-10': { marked: true }
+                }}
+              />
+              {selectedView === 'list' && (
+                <View style={styles.noEvents}>
+                  <Text style={styles.noEventsText}>No events to display</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  whiteBackground: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F5F5',
+  },
+  header: {
+    paddingTop: 15,
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+    backgroundColor: '#FFFFFF',
+  },
+  headerContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333333',
+  },
+  headerButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  filterButton: {
+    padding: 8,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 12,
+  },
+  requestButton: {
+    backgroundColor: Colors.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  requestButtonText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  calendarHeader: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  monthSelector: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  arrowButton: {
+    padding: 8,
+  },
+  monthText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333333',
+    marginHorizontal: 20,
+  },
+  viewToggle: {
+    flexDirection: 'row',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
+    padding: 4,
+  },
+  toggleButton: {
+    flex: 1,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 16,
+  },
+  toggleButtonActive: {
+    backgroundColor: '#FFFFFF',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
+  },
+  toggleText: {
+    textAlign: 'center',
+    color: '#666666',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  toggleTextActive: {
+    color: '#333333',
+    fontWeight: '600',
+  },
+  content: {
+    flex: 1,
+  },
+  calendar: {
+    backgroundColor: '#FFFFFF',
+  },
+  noEvents: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 40,
+  },
+  noEventsText: {
+    color: '#666666',
+    fontSize: 16,
+  },
+}); 
