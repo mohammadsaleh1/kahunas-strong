@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleLogin = () => {
     console.log('Login attempt with:', email, password);
-    router.replace('/(tabs)');
+    router.replace('/(tabs)/home');
   };
 
   return (
