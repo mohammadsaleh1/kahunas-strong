@@ -8,7 +8,7 @@ import WaterTracker from '../../components/WaterTracker';
 import WeightGraph from '../../components/WeightGraph';
 import StepsGraph from '../../components/StepsGraph';
 
-export default function Home() {
+export default function home() {
   const router = useRouter();
 
   return (
