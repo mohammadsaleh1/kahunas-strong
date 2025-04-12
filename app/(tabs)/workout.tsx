@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 12,
-    paddingTop: 8,
+    paddingTop: 0,
   },
   section: {
     marginTop: 16,
@@ -385,8 +385,8 @@ const styles = StyleSheet.create({
     }),
   },
   exerciseImageContainer: {
-    width: 140,
-    height: 140,
+    width: 150,
+    height: 100,
     backgroundColor: '#F0F0F0',
     justifyContent: 'center',
     alignItems: 'center',
