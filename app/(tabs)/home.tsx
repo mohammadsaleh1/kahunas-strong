@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Image, SafeAreaView, StatusBa
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
 import { useRouter } from 'expo-router';
-import DailyHabitsBox from '../../components/DailyHabitsBox';
+import DailyHabitsBox from '../components/DailyHabitsBox';
 import WaterTracker from '../components/WaterTracker';
 import WeightGraph from '../components/WeightGraph';
 import StepsGraph from '../components/StepsGraph';

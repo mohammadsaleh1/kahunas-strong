@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     padding: 20,
-    gap: 16,
     backgroundColor: '#f5f5f5',
   },
   row: {

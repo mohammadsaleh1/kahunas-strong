@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform, SafeAreaView, Dimensions, ScrollView, Linking, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
-import { CustomTextInput } from '../../components/TextInput';
+import CustomTextInput from '../components/ui/CustomTextInput';
 import { useRouter } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');

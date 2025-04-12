@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Switch, Platform } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput, Switch, Platform, Alert, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Colors } from '../../constants/Colors';
+import CustomTextInput from '../components/ui/CustomTextInput';
+import CustomSelectInput from '../components/ui/CustomSelectInput';
+
+interface EventData {
+  name: string;
+  type: string;
+  description: string;
+  location: string;
+  color: string;
+  notifyMe: boolean;
+  allDay: boolean;
+  startDate: Date;
+  endDate: Date;
+}
 
 interface EventRequestFormProps {
-  onSubmit: (eventData: any) => void;
+  onSubmit: (eventData: EventData) => void;
   onCancel: () => void;
 }
 
 export default function EventRequestForm({ onSubmit, onCancel }: EventRequestFormProps) {
-  const [eventData, setEventData] = useState({
+  const [eventData, setEventData] = useState<EventData>({
     name: '',
     type: '',
     description: '',
@@ -26,6 +40,16 @@ export default function EventRequestForm({ onSubmit, onCancel }: EventRequestFor
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [pickerMode, setPickerMode] = useState<'date' | 'time'>('date');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showTypeDropdown, setShowTypeDropdown] = useState(false);
+
+  const eventTypes = [
+    'Appointment',
+    'Event',
+    'Goal',
+    'Call',
+    'Other',
+    'Menstrual Cycle'
+  ];
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -104,65 +128,54 @@ export default function EventRequestForm({ onSubmit, onCancel }: EventRequestFor
     });
   };
 
+  const handleTextChange = (field: keyof EventData) => (text: string) => {
+    setEventData(prev => ({ ...prev, [field]: text }));
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+  };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>
-          Event Name <Text style={styles.required}>*</Text>
-        </Text>
-        <TextInput
-          style={[styles.input, errors.name && styles.inputError]}
-          value={eventData.name}
-          onChangeText={(text) => setEventData(prev => ({ ...prev, name: text }))}
-          placeholder="Enter event name"
-          placeholderTextColor="#999"
-        />
-        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
-      </View>
+      <CustomTextInput
+        label="Event Name"
+        placeholder="Enter event name"
+        value={eventData.name}
+        onChangeText={handleTextChange('name')}
+        error={errors.name}
+        icon="pricetag-outline"
+        required
+      />
 
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>
-          Event Type <Text style={styles.required}>*</Text>
-        </Text>
-        <TextInput
-          style={[styles.input, errors.type && styles.inputError]}
-          value={eventData.type}
-          onChangeText={(text) => setEventData(prev => ({ ...prev, type: text }))}
-          placeholder="Enter event type"
-          placeholderTextColor="#999"
-        />
-        {errors.type && <Text style={styles.errorText}>{errors.type}</Text>}
-      </View>
+      <CustomSelectInput
+        label="Event Type"
+        value={eventData.type}
+        options={eventTypes}
+        onSelect={handleTextChange('type')}
+        placeholder="Select event type"
+        error={errors.type}
+        required
+      />
 
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>
-          Description <Text style={styles.required}>*</Text>
-        </Text>
-        <TextInput
-          style={[styles.textArea, errors.description && styles.inputError]}
-          value={eventData.description}
-          onChangeText={(text) => setEventData(prev => ({ ...prev, description: text }))}
-          placeholder="Enter event description"
-          placeholderTextColor="#999"
-          multiline
-          numberOfLines={4}
-        />
-        {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
-      </View>
+      <CustomTextInput
+        label="Description"
+        placeholder="Enter event description"
+        value={eventData.description}
+        onChangeText={handleTextChange('description')}
+        error={errors.description}
+        icon="document-text-outline"
+        required
+      />
 
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>
-          Location <Text style={styles.required}>*</Text>
-        </Text>
-        <TextInput
-          style={[styles.input, errors.location && styles.inputError]}
-          value={eventData.location}
-          onChangeText={(text) => setEventData(prev => ({ ...prev, location: text }))}
-          placeholder="Enter location"
-          placeholderTextColor="#999"
-        />
-        {errors.location && <Text style={styles.errorText}>{errors.location}</Text>}
-      </View>
+      <CustomTextInput
+        label="Location"
+        placeholder="Enter location"
+        value={eventData.location}
+        onChangeText={handleTextChange('location')}
+        error={errors.location}
+        icon="location-outline"
+        required
+      />
 
       <View style={styles.formGroup}>
         <Text style={styles.label}>Event Color</Text>
