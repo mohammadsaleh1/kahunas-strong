@@ -3,11 +3,17 @@ import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, Plat
 import { Calendar as RNCalendar } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
+import { useRouter } from 'expo-router';
 
 export default function Calendar() {
+  const router = useRouter();
   const [selectedView, setSelectedView] = useState<'month' | 'list'>('month');
   const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleString('default', { month: 'long' }));
   
+  const handleRequestEvent = () => {
+    router.push('/(tabs)/new-event');
+  };
+
   return (
     <>
       <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
@@ -21,7 +27,10 @@ export default function Calendar() {
                   <TouchableOpacity style={styles.filterButton}>
                     <Ionicons name="funnel-outline" size={20} color={Colors.primary} />
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.requestButton}>
+                  <TouchableOpacity 
+                    style={styles.requestButton}
+                    onPress={handleRequestEvent}
+                  >
                     <Text style={styles.requestButtonText}>Request Event</Text>
                   </TouchableOpacity>
                 </View>
@@ -74,7 +83,7 @@ export default function Calendar() {
                   textMonthFontSize: 16,
                   textDayHeaderFontSize: 14
                 }}
-                onMonthChange={(month) => {
+                onMonthChange={(month: { timestamp: number }) => {
                   setCurrentMonth(new Date(month.timestamp).toLocaleString('default', { month: 'long' }));
                 }}
                 enableSwipeMonths={true}

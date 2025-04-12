@@ -17,23 +17,22 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarInactiveTintColor: '#666666',
-        tabBarStyle: {
-          borderTopWidth: 1,
-          borderTopColor: '#E0E0E0',
-        },
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+        tabBarStyle: {
+          borderTopWidth: 1,
+          borderTopColor: '#E0E0E0',
+          ...Platform.select({
+            ios: {
+              position: 'absolute',
+            },
+            default: {},
+          }),
+        },
       }}>
       <Tabs.Screen
-        name="index"
+        name="Home"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={24} color={color} />,
@@ -47,10 +46,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="event-request"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <Ionicons name="compass-outline" size={24} color={color} />,
+          href: null, // This hides the screen from the tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="new-event"
+        options={{
+          href: null, // This hides the screen from the tab bar
         }}
       />
     </Tabs>
