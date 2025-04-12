@@ -20,23 +20,15 @@ export default function home() {
             <View style={styles.header}>
               <View style={styles.headerContent}>
                 <View style={styles.profileSection}>
-                  <TouchableOpacity 
-                    style={styles.profileSection}
-                    onPress={() => router.push('/(tabs)/profile')}
-                  >
-                    <Image 
-                      source={require('../../assets/images/image.png')}
-                      style={styles.profileImage}
-                      resizeMode="cover"
-                    />
-                    <View style={styles.profileInfo}>
-                      <View style={styles.greetingContainer}>
-                        <Text style={styles.greeting}>Hello, Moh</Text>
-                        <Ionicons name="chevron-forward" size={20} color="#333333" style={styles.chevronIcon} />
-                      </View>
-                      <Text style={styles.subtitle}>Let's check your athletes</Text>
-                    </View>
-                  </TouchableOpacity>
+                  <Image 
+                    source={require('../../assets/images/image.png')}
+                    style={styles.profileImage}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.profileInfo}>
+                    <Text style={styles.greeting}>Hello, Moh</Text>
+                    <Text style={styles.subtitle}>Let's check your athletes</Text>
+                  </View>
                 </View>
                 <TouchableOpacity 
                   style={styles.notificationButton}
@@ -47,81 +39,80 @@ export default function home() {
                 </TouchableOpacity>
               </View>
             </View>
-            <ScrollView 
-              style={styles.content}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.scrollContent}
-            >
-              <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>Daily Checkin</Text>
-              </View>
-              <ScrollView 
-                horizontal 
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={[styles.habitsScrollContainer, { flexDirection: 'row-reverse' }]}
-              >
-                <DailyHabitsBox 
-                  label="Sun"
-                  day="11"
-                  isChecked={true}
-                  isLast={true}
-                />
-                <DailyHabitsBox 
-                  label="Sat"
-                  day="10"
-                  isChecked={false}
-                />
-                <DailyHabitsBox 
-                  label="Fri"
-                  day="09"
-                  isChecked={true}
-                />
-                <DailyHabitsBox 
-                  label="Thu"
-                  day="08"
-                  isChecked={false}
-                />
-                <DailyHabitsBox 
-                  label="Wed"
-                  day="07"
-                  isChecked={true}
-                />
-                <DailyHabitsBox 
-                  label="Tue"
-                  day="06"
-                  isChecked={false}
-                />
-                <DailyHabitsBox 
-                  label="Mon"
-                  day="05"
-                  isChecked={true}
-                />
-              </ScrollView>
-              <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>Check-In</Text>
-              </View>
-              <TouchableOpacity 
-                style={styles.checkInButton}
-                onPress={() => {}}
-              >
-                <View style={styles.checkInContent}>
-                  <Text style={styles.checkInText}>You can check-in now</Text>
-                  <Ionicons name="chevron-forward" size={24} color="#FFFFFF" />
+            <View style={styles.content}>
+              <View>
+                <View style={styles.sectionTitleContainer}>
+                  <Text style={styles.sectionTitle}>Daily Checkin</Text>
                 </View>
-              </TouchableOpacity>
-              <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>Progress</Text>
-              </View>
-              <View style={styles.statsRow}>
-                <View style={styles.statsColumn}>
-                  <WeightGraph />
-                  <StepsGraph />
+                <ScrollView 
+                  horizontal 
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={[styles.habitsScrollContainer, { flexDirection: 'row-reverse' }]}
+                >
+                  <DailyHabitsBox 
+                    label="Sun"
+                    day="11"
+                    isChecked={true}
+                    isLast={true}
+                  />
+                  <DailyHabitsBox 
+                    label="Sat"
+                    day="10"
+                    isChecked={false}
+                  />
+                  <DailyHabitsBox 
+                    label="Fri"
+                    day="09"
+                    isChecked={true}
+                  />
+                  <DailyHabitsBox 
+                    label="Thu"
+                    day="08"
+                    isChecked={false}
+                  />
+                  <DailyHabitsBox 
+                    label="Wed"
+                    day="07"
+                    isChecked={true}
+                  />
+                  <DailyHabitsBox 
+                    label="Tue"
+                    day="06"
+                    isChecked={false}
+                  />
+                  <DailyHabitsBox 
+                    label="Mon"
+                    day="05"
+                    isChecked={true}
+                  />
+                </ScrollView>
+                <View style={styles.sectionTitleContainer}>
+                  <Text style={styles.sectionTitle}>Check-In</Text>
                 </View>
-                <View style={styles.waterTrackerContainer}>
-                  <WaterTracker />
+                <TouchableOpacity 
+                  style={styles.checkInButton}
+                  onPress={() => {}}
+                >
+                  <View style={styles.checkInContent}>
+                    <Text style={styles.checkInText}>You can check-in now</Text>
+                    <Ionicons name="chevron-forward" size={24} color="#FFFFFF" />
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.sectionTitleContainer}>
+                  <Text style={styles.sectionTitle}>Progress</Text>
+                </View>
+                <View style={styles.statsRow}>
+                  <View style={styles.statsColumn}>
+                    <WeightGraph />
+                    <StepsGraph />
+                  </View>
+                  <View style={styles.waterTrackerContainer}>
+                    <WaterTracker />
+                  </View>
                 </View>
               </View>
-            </ScrollView>
+           
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -155,7 +146,6 @@ const styles = StyleSheet.create({
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
   },
   profileImage: {
     width: 40,
@@ -165,10 +155,6 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     flexDirection: 'column',
-  },
-  greetingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   greeting: {
     fontSize: 18,
@@ -180,18 +166,12 @@ const styles = StyleSheet.create({
     color: '#666666',
     marginTop: 4,
   },
-  chevronIcon: {
-    marginLeft: 4,
-  },
   exploreButton: {
    
-  },
+  },    
   content: {
     flex: 1,
-  },
-  scrollContent: {
     padding: 10,
-    paddingBottom: 20,
   },
   habitsScrollContainer: {
     paddingHorizontal: 20,

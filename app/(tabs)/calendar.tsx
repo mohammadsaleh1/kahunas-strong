@@ -4,12 +4,15 @@ import { Calendar as RNCalendar } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
 import { useRouter } from 'expo-router';
+import CalendarEventItem from '../components/CalendarEventItem';
+import CalendarDateHeader from '../components/CalendarDateHeader';
 
 export default function Calendar() {
   const router = useRouter();
   const [selectedView, setSelectedView] = useState<'month' | 'list'>('month');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(currentDate.toLocaleString('default', { month: 'long' }));
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   
   const handleRequestEvent = () => {
     router.push('/(tabs)/new-event');
@@ -113,22 +116,29 @@ export default function Calendar() {
                 />
               ) : (
                 <View style={styles.listContainer}>
-                  <View style={styles.dateHeader}>
-                    <View style={styles.dateInfo}>
-                      <Text style={styles.dateText}>April 11</Text>
-                      <Text style={styles.dayText}>Friday</Text>
-                    </View>
-                  </View>
-                  <View style={styles.eventItem}>
-                    <View style={styles.eventTimeContainer}>
-                      <Text style={styles.eventTime}>11:10 AM</Text>
-                      <View style={styles.eventDot} />
-                    </View>
-                    <View style={styles.eventDetails}>
-                      <Text style={styles.eventTitle}>fduyfjff</Text>
-                      <Text style={styles.eventType}>Logged Workout</Text>
-                    </View>
-                  </View>
+                  <CalendarDateHeader 
+                    date="April 11"
+                    day="Friday"
+                  />
+                  <CalendarEventItem 
+                    time="11:10 AM"
+                    title="Morning Workout"
+                    type="Logged Workout"
+                  />
+                  <CalendarEventItem 
+                    time="2:30 PM"
+                    title="Afternoon Session"
+                    type="Logged Workout"
+                  />
+                  <CalendarDateHeader 
+                    date="April 12"
+                    day="Saturday"
+                  />
+                  <CalendarEventItem 
+                    time="10:00 AM"
+                    title="Weekend Training"
+                    type="Logged Workout"
+                  />
                 </View>
               )}
             </View>
@@ -255,7 +265,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    paddingTop: 16,
   },
   dateHeader: {
     backgroundColor: '#F5F5F5',
