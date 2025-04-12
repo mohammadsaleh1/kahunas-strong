@@ -8,10 +8,18 @@ import { useRouter } from 'expo-router';
 export default function Calendar() {
   const router = useRouter();
   const [selectedView, setSelectedView] = useState<'month' | 'list'>('month');
-  const [currentMonth, setCurrentMonth] = useState(new Date().toLocaleString('default', { month: 'long' }));
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(currentDate.toLocaleString('default', { month: 'long' }));
   
   const handleRequestEvent = () => {
     router.push('/(tabs)/new-event');
+  };
+
+  const handleMonthChange = (increment: number) => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(newDate.getMonth() + increment);
+    setCurrentDate(newDate);
+    setCurrentMonth(newDate.toLocaleString('default', { month: 'long' }));
   };
 
   return (
@@ -39,11 +47,17 @@ export default function Calendar() {
 
             <View style={styles.calendarHeader}>
               <View style={styles.monthSelector}>
-                <TouchableOpacity style={styles.arrowButton}>
+                <TouchableOpacity 
+                  style={styles.arrowButton}
+                  onPress={() => handleMonthChange(-1)}
+                >
                   <Ionicons name="chevron-back" size={24} color="#333333" />
                 </TouchableOpacity>
                 <Text style={styles.monthText}>{currentMonth}</Text>
-                <TouchableOpacity style={styles.arrowButton}>
+                <TouchableOpacity 
+                  style={styles.arrowButton}
+                  onPress={() => handleMonthChange(1)}
+                >
                   <Ionicons name="chevron-forward" size={24} color="#333333" />
                 </TouchableOpacity>
               </View>
@@ -64,37 +78,57 @@ export default function Calendar() {
             </View>
 
             <View style={styles.content}>
-              <RNCalendar
-                style={styles.calendar}
-                theme={{
-                  backgroundColor: '#FFFFFF',
-                  calendarBackground: '#FFFFFF',
-                  textSectionTitleColor: '#666666',
-                  selectedDayBackgroundColor: Colors.primary,
-                  selectedDayTextColor: '#FFFFFF',
-                  todayTextColor: Colors.primary,
-                  dayTextColor: '#333333',
-                  textDisabledColor: '#D9D9D9',
-                  dotColor: Colors.primary,
-                  selectedDotColor: '#FFFFFF',
-                  arrowColor: Colors.primary,
-                  monthTextColor: '#333333',
-                  textDayFontSize: 14,
-                  textMonthFontSize: 16,
-                  textDayHeaderFontSize: 14
-                }}
-                onMonthChange={(month: { timestamp: number }) => {
-                  setCurrentMonth(new Date(month.timestamp).toLocaleString('default', { month: 'long' }));
-                }}
-                enableSwipeMonths={true}
-                markingType={'dot'}
-                markedDates={{
-                  '2024-04-10': { marked: true }
-                }}
-              />
-              {selectedView === 'list' && (
-                <View style={styles.noEvents}>
-                  <Text style={styles.noEventsText}>No events to display</Text>
+              {selectedView === 'month' ? (
+                <RNCalendar
+                  key={`${currentDate.getFullYear()}-${currentDate.getMonth()}`}
+                  style={styles.calendar}
+                  current={`${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-01`}
+                  theme={{
+                    backgroundColor: '#FFFFFF',
+                    calendarBackground: '#FFFFFF',
+                    textSectionTitleColor: '#666666',
+                    selectedDayBackgroundColor: Colors.primary,
+                    selectedDayTextColor: '#FFFFFF',
+                    todayTextColor: Colors.primary,
+                    dayTextColor: '#333333',
+                    textDisabledColor: '#D9D9D9',
+                    dotColor: Colors.primary,
+                    selectedDotColor: '#FFFFFF',
+                    arrowColor: Colors.primary,
+                    monthTextColor: '#333333',
+                    textDayFontSize: 14,
+                    textMonthFontSize: 16,
+                    textDayHeaderFontSize: 14
+                  }}
+                  onMonthChange={(month: { timestamp: number }) => {
+                    const newDate = new Date(month.timestamp);
+                    setCurrentDate(newDate);
+                    setCurrentMonth(newDate.toLocaleString('default', { month: 'long' }));
+                  }}
+                  enableSwipeMonths={true}
+                  markingType={'dot'}
+                  markedDates={{
+                    '2024-04-10': { marked: true }
+                  }}
+                />
+              ) : (
+                <View style={styles.listContainer}>
+                  <View style={styles.dateHeader}>
+                    <View style={styles.dateInfo}>
+                      <Text style={styles.dateText}>April 11</Text>
+                      <Text style={styles.dayText}>Friday</Text>
+                    </View>
+                  </View>
+                  <View style={styles.eventItem}>
+                    <View style={styles.eventTimeContainer}>
+                      <Text style={styles.eventTime}>11:10 AM</Text>
+                      <View style={styles.eventDot} />
+                    </View>
+                    <View style={styles.eventDetails}>
+                      <Text style={styles.eventTitle}>fduyfjff</Text>
+                      <Text style={styles.eventType}>Logged Workout</Text>
+                    </View>
+                  </View>
                 </View>
               )}
             </View>
@@ -219,14 +253,64 @@ const styles = StyleSheet.create({
   calendar: {
     backgroundColor: '#FFFFFF',
   },
-  noEvents: {
+  listContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 40,
+    backgroundColor: '#F5F5F5',
   },
-  noEventsText: {
-    color: '#666666',
+  dateHeader: {
+    backgroundColor: '#F5F5F5',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5E5',
+  },
+  dateInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dateText: {
     fontSize: 16,
+    fontWeight: '600',
+    color: '#333333',
+  },
+  dayText: {
+    fontSize: 16,
+    color: '#666666',
+  },
+  eventItem: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5E5',
+  },
+  eventTimeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  eventTime: {
+    fontSize: 14,
+    color: '#333333',
+    marginRight: 8,
+  },
+  eventDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#4CAF50',
+  },
+  eventDetails: {
+    flex: 1,
+  },
+  eventTitle: {
+    fontSize: 14,
+    color: '#333333',
+    marginBottom: 4,
+  },
+  eventType: {
+    fontSize: 14,
+    color: '#666666',
   },
 }); 
