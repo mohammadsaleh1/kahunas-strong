@@ -20,15 +20,23 @@ export default function home() {
             <View style={styles.header}>
               <View style={styles.headerContent}>
                 <View style={styles.profileSection}>
-                  <Image 
-                    source={require('../../assets/images/image.png')}
-                    style={styles.profileImage}
-                    resizeMode="cover"
-                  />
-                  <View style={styles.profileInfo}>
-                    <Text style={styles.greeting}>Hello, Moh</Text>
-                    <Text style={styles.subtitle}>Let's check your athletes</Text>
-                  </View>
+                  <TouchableOpacity 
+                    style={styles.profileSection}
+                    onPress={() => router.push('/(tabs)/profile')}
+                  >
+                    <Image 
+                      source={require('../../assets/images/image.png')}
+                      style={styles.profileImage}
+                      resizeMode="cover"
+                    />
+                    <View style={styles.profileInfo}>
+                      <View style={styles.greetingContainer}>
+                        <Text style={styles.greeting}>Hello, Moh</Text>
+                        <Ionicons name="chevron-forward" size={20} color="#333333" style={styles.chevronIcon} />
+                      </View>
+                      <Text style={styles.subtitle}>Let's check your athletes</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
                 <TouchableOpacity 
                   style={styles.notificationButton}
@@ -147,6 +155,7 @@ const styles = StyleSheet.create({
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   profileImage: {
     width: 40,
@@ -157,6 +166,10 @@ const styles = StyleSheet.create({
   profileInfo: {
     flexDirection: 'column',
   },
+  greetingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   greeting: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -166,6 +179,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666666',
     marginTop: 4,
+  },
+  chevronIcon: {
+    marginLeft: 4,
   },
   exploreButton: {
    
