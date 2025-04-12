@@ -76,15 +76,15 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 24,
+    marginBottom: 15,
   },
   label: {
     color: '#000000',
     fontSize: 13,
-    marginBottom: 8,
+    marginBottom: 3,
     fontWeight: '400',
     marginLeft: 4,
-    paddingBottom: 4,
+    paddingBottom: 3,
   },
   inputWrapper: {
     flexDirection: 'row',

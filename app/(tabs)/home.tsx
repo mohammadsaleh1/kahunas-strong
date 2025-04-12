@@ -31,10 +31,11 @@ export default function home() {
                   </View>
                 </View>
                 <TouchableOpacity 
-                  style={styles.subtitle}
-                  onPress={() => {}}
+                  style={styles.notificationButton}
+                  onPress={() => router.push('/notifications')}
                 >
                   <Ionicons name="notifications-outline" size={25} color={Colors.primary} />
+                  <View style={styles.notificationBadge} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -276,5 +277,18 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '500',
+  },
+  notificationButton: {
+    position: 'relative',
+    padding: 8,
+  },
+  notificationBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: Colors.primary,
   },
 }); 

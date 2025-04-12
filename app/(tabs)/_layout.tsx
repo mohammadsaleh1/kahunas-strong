@@ -53,6 +53,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Ionicons name="person" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="edit-profile"
+        options={{
+          href: null, // This hides the screen from the tab bar
+        }}
+      />
+      <Tabs.Screen
         name="event-request"
         options={{
           href: null, // This hides the screen from the tab bar
