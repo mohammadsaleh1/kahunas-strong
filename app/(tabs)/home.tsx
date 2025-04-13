@@ -60,36 +60,43 @@ export default function HomeScreen() {
                     day="11"
                     isChecked={true}
                     isLast={true}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                   <DailyHabitsBox 
                     label="Sat"
                     day="10"
                     isChecked={false}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                   <DailyHabitsBox 
                     label="Fri"
                     day="09"
                     isChecked={true}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                   <DailyHabitsBox 
                     label="Thu"
                     day="08"
                     isChecked={false}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                   <DailyHabitsBox 
                     label="Wed"
                     day="07"
                     isChecked={true}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                   <DailyHabitsBox 
                     label="Tue"
                     day="06"
                     isChecked={false}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                   <DailyHabitsBox 
                     label="Mon"
                     day="05"
                     isChecked={true}
+                    onPress={() => router.push('/daily-checkin')}
                   />
                 </ScrollView>
                 <View style={styles.sectionTitleContainer}>
