@@ -104,7 +104,7 @@ export default function HomeScreen() {
                 </View>
                 <TouchableOpacity 
                   style={styles.checkInButton}
-                  onPress={() => router.push('/(tabs)/checkin')}
+                  onPress={() => router.push('/checkin')}
                 >
                   <View style={styles.checkInContent}>
                     <Text style={styles.checkInText}>You can check-in now</Text>

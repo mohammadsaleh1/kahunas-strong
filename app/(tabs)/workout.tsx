@@ -315,6 +315,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F9FA',
+    paddingBottom: Platform.OS === 'ios' ? 100 : 0,
   },
   header: {
     flexDirection: 'row',
@@ -342,6 +343,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
     paddingTop: 0,
+    paddingBottom: 16,
   },
   section: {
     marginTop: 16,
@@ -450,6 +452,10 @@ const styles = StyleSheet.create({
     margin: 16,
     padding: 16,
     borderRadius: 12,
+    position: 'absolute',
+    bottom: Platform.OS === 'ios' ? 100 : 16,
+    left: 16,
+    right: 16,
     ...Platform.select({
       ios: {
         shadowColor: Colors.primary,

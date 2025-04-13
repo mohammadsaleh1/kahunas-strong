@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors } from '../../constants/Colors';
-import { checkInFormFields, CheckInFormField } from '../interfaces/checkin-form';
-import CustomTextAreaInput from '../components/ui/CustomTextAreaInput';
-import CustomSelectInput from '../components/ui/CustomSelectInput';
-import DateTimeInput from '../components/ui/DateTimeInput';
+import { Colors } from '../constants/Colors';
+import { checkInFormFields, CheckInFormField } from './interfaces/checkin-form';
+import CustomTextAreaInput from './components/ui/CustomTextAreaInput';
+import CustomSelectInput from './components/ui/CustomSelectInput';
+import DateTimeInput from './components/ui/DateTimeInput';
 
 export default function CheckInScreen() {
   const [formData, setFormData] = useState<Record<string, any>>({});
@@ -136,9 +136,6 @@ export default function CheckInScreen() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Weekly Check-in</Text>
-      </View>
 
       <View style={styles.formContainer}>
         <DateTimeInput

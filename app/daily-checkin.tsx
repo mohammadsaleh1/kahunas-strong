@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Alert, TextInput, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors } from '../../constants/Colors';
-import { dailyCheckInFormFields, DailyCheckInFormField } from '../interfaces/daily-checkin-form';
-import CustomTextAreaInput from '../components/ui/CustomTextAreaInput';
-import CustomSelectInput from '../components/ui/CustomSelectInput';
-import DateTimeInput from '../components/ui/DateTimeInput';
+import { Colors } from '../constants/Colors';
+import { dailyCheckInFormFields, DailyCheckInFormField } from './interfaces/daily-checkin-form';
+import CustomTextAreaInput from './components/ui/CustomTextAreaInput';
+import CustomSelectInput from './components/ui/CustomSelectInput';
+import DateTimeInput from './components/ui/DateTimeInput';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -62,7 +62,7 @@ export default function DailyCheckInScreen() {
     }
   };
 
-  const convertToCSV = (data: any) => {
+  const convertToCSV = (data: Record<string, any>) => {
     const headers = Object.keys(data);
     const values = headers.map(header => data[header]);
     return [headers.join(','), values.join(',')].join('\n');
@@ -116,7 +116,7 @@ export default function DailyCheckInScreen() {
             <Text style={styles.label}>{field.label}</Text>
             <TextInput
               style={styles.numberInput}
-              value={formData[field.name] || ''}
+              value={formData[field.name]?.toString() || ''}
               onChangeText={(text) => handleFieldChange(field.name, text)}
               keyboardType="numeric"
               placeholder="Enter number"
@@ -189,9 +189,7 @@ export default function DailyCheckInScreen() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Daily Check-in</Text>
-      </View>
+   
 
       <View style={styles.formContainer}>
         <DateTimeInput
@@ -333,7 +331,6 @@ const styles = StyleSheet.create({
   },
   ratingNumberText: {
     fontSize: 14,
-    color: '#666666',
     fontWeight: '400',
   },
   ratingNumberTextSelected: {
@@ -373,4 +370,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333333',
   },
-}); 
+});

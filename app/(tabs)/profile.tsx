@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Platform, Alert } from 'react-native';
 import { router } from 'expo-router';
 import { Colors } from '../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,6 +7,28 @@ import { Ionicons } from '@expo/vector-icons';
 export default function Profile() {
   const handleEditProfile = () => {
     router.push('/(tabs)/edit-profile');
+  };
+
+  const handleCheckIns = () => {
+    router.push('/check-ins');
+  };
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: () => router.replace('/(auth)/login')
+        }
+      ]
+    );
   };
 
   return (
@@ -48,7 +70,7 @@ export default function Profile() {
             <Ionicons name="chevron-forward" size={24} color="#999" />
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity style={styles.menuItem} onPress={handleCheckIns}>
             <Ionicons name="location-outline" size={24} color="#333" />
             <Text style={styles.menuText}>Check-ins</Text>
             <View style={styles.menuExtra}>
@@ -67,6 +89,11 @@ export default function Profile() {
             <Ionicons name="help-circle-outline" size={24} color="#333" />
             <Text style={styles.menuText}>Help & Support</Text>
             <Ionicons name="chevron-forward" size={24} color="#999" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.menuItem, styles.logoutButton]} onPress={handleLogout}>
+            <Ionicons name="log-out-outline" size={24} color="#EF4444" />
+            <Text style={[styles.menuText, styles.logoutText]}>Logout</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -167,5 +194,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.primary,
     fontWeight: '600',
+  },
+  logoutButton: {
+    marginTop: 20,
+    borderBottomWidth: 0,
+  },
+  logoutText: {
+    color: '#EF4444',
   },
 }); 

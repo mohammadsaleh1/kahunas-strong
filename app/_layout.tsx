@@ -41,6 +41,22 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: 'transparent' },
           }}
         />
+        <Stack.Screen
+          name="daily-checkin"
+          options={{
+            title: 'Daily Check-in',
+            headerShown: true,
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen
+          name="checkin"
+          options={{
+            title: 'Weekly Check-in',
+            headerShown: true,
+            presentation: 'modal',
+          }}
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
