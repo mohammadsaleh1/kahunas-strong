@@ -5,23 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Colors } from '../../constants/Colors';
 import CustomTextInput from '../components/ui/CustomTextInput';
 import CustomSelectInput from '../components/ui/CustomSelectInput';
-
-interface EventData {
-  name: string;
-  type: string;
-  description: string;
-  location: string;
-  color: string;
-  notifyMe: boolean;
-  allDay: boolean;
-  startDate: Date;
-  endDate: Date;
-}
-
-interface EventRequestFormProps {
-  onSubmit: (eventData: EventData) => void;
-  onCancel: () => void;
-}
+import { EventData, EventRequestFormProps } from '@/interfaces/form';
 
 export default function EventRequestForm({ onSubmit, onCancel }: EventRequestFormProps) {
   const [eventData, setEventData] = useState<EventData>({

@@ -2,19 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal, ViewStyle, TextStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-
-interface CustomSelectInputProps {
-  label?: string;
-  value: string;
-  options: string[];
-  onSelect: (value: string) => void;
-  placeholder?: string;
-  error?: string;
-  required?: boolean;
-  style?: ViewStyle;
-  labelStyle?: TextStyle;
-  containerStyle?: ViewStyle;
-}
+import { CustomSelectInputProps } from '@/interfaces/ui';
 
 export default function CustomSelectInput({
   label,

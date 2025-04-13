@@ -2,28 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput as RNTextInput, StyleSheet, ViewStyle, TextStyle, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-
-interface CustomTextInputProps {
-  label?: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  placeholder: string;
-  secureTextEntry?: boolean;
-  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  icon?: keyof typeof Ionicons.glyphMap;
-  showPasswordToggle?: boolean;
-  onTogglePassword?: () => void;
-  showPassword?: boolean;
-  style?: ViewStyle;
-  labelStyle?: TextStyle;
-  inputStyle?: TextStyle;
-  autoFocus?: boolean;
-  error?: string;
-  multiline?: boolean;
-  numberOfLines?: number;
-  required?: boolean;
-}
+import { CustomTextInputProps } from '@/interfaces/ui';
 
 export default function CustomTextInput({
   label,

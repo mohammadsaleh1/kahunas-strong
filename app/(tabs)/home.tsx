@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import DailyHabitsBox from '../components/DailyHabitsBox';
 import WaterTracker from '../components/WaterTracker';
 import WeightGraph from '../components/WeightGraph';
 import StepsGraph from '../components/StepsGraph';
 
-export default function home() {
+export default function HomeScreen() {
   const router = useRouter();
 
   return (
@@ -20,15 +20,21 @@ export default function home() {
             <View style={styles.header}>
               <View style={styles.headerContent}>
                 <View style={styles.profileSection}>
-                  <Image 
+                  <Link href="/(tabs)/profile" asChild>
+                    <TouchableOpacity style={styles.profileLink}>
+                      <Image
                     source={require('../../assets/images/image.png')}
                     style={styles.profileImage}
-                    resizeMode="cover"
-                  />
-                  <View style={styles.profileInfo}>
-                    <Text style={styles.greeting}>Hello, Moh</Text>
-                    <Text style={styles.subtitle}>Let's check your athletes</Text>
-                  </View>
+                      />
+                      <View style={styles.profileInfo}>
+                        <View style={styles.nameContainer}>
+                          <Text style={styles.greeting}>Hello, Moh</Text>
+                          <Ionicons name="chevron-forward" size={20} color="#666" />
+                        </View>
+                        <Text style={styles.subtitle}>Let's check your athletes</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </Link>
                 </View>
                 <TouchableOpacity 
                   style={styles.notificationButton}
@@ -91,7 +97,7 @@ export default function home() {
                 </View>
                 <TouchableOpacity 
                   style={styles.checkInButton}
-                  onPress={() => {}}
+                  onPress={() => router.push('/(tabs)/checkin')}
                 >
                   <View style={styles.checkInContent}>
                     <Text style={styles.checkInText}>You can check-in now</Text>
@@ -290,5 +296,14 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: Colors.primary,
+  },
+  profileLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  nameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
 }); 
