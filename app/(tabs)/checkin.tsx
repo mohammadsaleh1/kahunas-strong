@@ -71,7 +71,6 @@ export default function CheckInScreen() {
           </View>
         );
       case 'dropdown':
-      case 'checkbox':
         return (
           <View key={field.name} style={styles.fieldContainer}>
             <CustomSelectInput
@@ -83,6 +82,40 @@ export default function CheckInScreen() {
               required={field.required}
               labelStyle={styles.label}
             />
+          </View>
+        );
+      case 'checkbox':
+        return (
+          <View key={field.name} style={styles.fieldContainer}>
+            <Text style={styles.label}>{field.label}</Text>
+            <View style={styles.checkboxContainer}>
+              {Array.isArray(field.option) && field.option.map((option) => {
+                const isSelected = Array.isArray(formData[field.name]) && formData[field.name].includes(option);
+                return (
+                  <TouchableOpacity
+                    key={option}
+                    style={[
+                      styles.checkboxOption,
+                      isSelected && styles.checkboxOptionSelected
+                    ]}
+                    onPress={() => {
+                      const currentValues = Array.isArray(formData[field.name]) ? formData[field.name] : [];
+                      const newValues = isSelected
+                        ? currentValues.filter((v: string) => v !== option)
+                        : [...currentValues, option];
+                      handleFieldChange(field.name, newValues);
+                    }}
+                  >
+                    <Text style={[
+                      styles.checkboxOptionText,
+                      isSelected && styles.checkboxOptionTextSelected
+                    ]}>
+                      {option}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
           </View>
         );
       case 'video':
@@ -250,5 +283,28 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#333333',
     marginBottom: 5,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  checkboxOption: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    backgroundColor: 'transparent',
+  },
+  checkboxOptionSelected: {
+    borderColor: Colors.primary,
+  },
+  checkboxOptionText: {
+    fontSize: 14,
+    color: '#666666',
+  },
+  checkboxOptionTextSelected: {
+    color: Colors.primary,
   },
 }); 
