@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, SafeAreaView, StatusBar, Platform, ScrollView, 
 import { Colors } from '../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { Video, ResizeMode } from 'expo-av';
+import { useRouter } from 'expo-router';
 
 type Exercise = {
   name: string;
@@ -125,6 +126,7 @@ export default function Workout() {
   const [showWorkoutPicker, setShowWorkoutPicker] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState<Workout>(workouts[0]);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+  const router = useRouter();
 
   const handleVideoPress = (videoUrl: string) => {
     setSelectedVideo(videoUrl);
@@ -134,6 +136,10 @@ export default function Workout() {
     setSelectedWorkout(workout);
     setSelectedDayIndex(0);
     setShowWorkoutPicker(false);
+  };
+
+  const handleLogWorkout = () => {
+    router.push('/workout-log');
   };
 
   return (
@@ -297,7 +303,11 @@ export default function Workout() {
           </View>
         </Modal>
 
-        <TouchableOpacity style={styles.logButton} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={styles.logButton} 
+          activeOpacity={0.8}
+          onPress={handleLogWorkout}
+        >
           <Text style={styles.logButtonText}>Log this workout</Text>
           <Ionicons name="checkmark-circle-outline" size={24} color="#FFFFFF" style={styles.logIcon} />
         </TouchableOpacity>

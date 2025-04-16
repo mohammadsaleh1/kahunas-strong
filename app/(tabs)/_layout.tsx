@@ -46,6 +46,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="workout-log-modern"
+        options={{
+          href: null, // This hides the screen from the tab bar
+        }}
+      />
+      <Tabs.Screen
         name="calendar"
         options={{
           title: 'Calendar',
@@ -81,6 +87,13 @@ export default function TabLayout() {
         name="new-event"
         options={{
           href: null, // This hides the screen from the tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="home-modern"
+        options={{
+          title: 'Modern Home',
+          tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={24} color={color} />,
         }}
       />
     </Tabs>

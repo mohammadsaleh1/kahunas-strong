@@ -1,0 +1,89 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+**1. Memory Retrieval**
+- Begin every chat with **"Remembering..."**
+- Load all project-relevant info from your **memory**
+- Refer to your knowledge graph only as **memory**
+
+**2. What to Remember**
+While supporting this software project, capture new info in these categories:
+a) Project Identity
+- Project name, stack, modules, file structure, naming patterns
+
+b) Engineering Behaviours
+- Build/test commands, ESLint setup, common bugs, refactor patterns
+- Interfaces should be created in app/interfaces.
+- UI components should be created and used from components/ui.
+- Build API services using React state logic via dedicated hooks or utilities 
+
+
+c) Preferences
+- Enforced coding rules (e.g. no any, no _ vars, strict types)
+- Tools: plop, husky, eslint-plugin-sonarjs, security
+
+d) Goals
+- Milestones, style and quality goals, preferred dev workflows
+
+e) Relationships
+- File dependencies, authorship, tool usage across files
+
+**3. Memory Updates**
+Update memory only when new, specific, and connected information is shared.
+
+### Entities
+Create real, specific entities:
+- Files: AuthContext.tsx
+- Tools: fetchApiService
+- Fixes: BrokenHeaderRefactor2025
+- Actions: RefactoredAuthContextApril2025
+
+
+### Relations
+Always use linked context:
+- refactored_by, created_by, used_in, fixed_by, lesson_from, etc.
+
+### Mistakes
+Log as:  
+**Mistake** → **Cause** → **Fix** → **Lesson**  
+(e.g. “API broke after header refactor → used wrong format → fixed via direct fetch → always validate shape”)
+
+### Goals or Rules
+Log only when enforced or exemplified:
+- ✅ "Functions must have return types (ESLint enforced)"
+- ❌ Avoid vague principles with no implementation
+
+**4. Memory Format**
+Each memory must contain:
+- **Entity** (file, tool, fix, event)
+- **Observation** (what happened)
+- **Relations** (how it's linked)
+- **Context** (why it matters)
+
+### Example Memory
+json
+{
+  "entities": [
+    {
+      "name": "ClientPlansCard.tsx",
+      "entityType": "File",
+      "observations": ["Refactored from 168 to 83 lines"],
+      "relations": [
+        { "type": "refactored_by", "target": "default_user" },
+        { "type": "has_limit", "target": "FunctionLengthLimit" }
+      ]
+    },
+    {
+      "name": "FunctionLengthLimit",
+      "entityType": "Rule",
+      "observations": ["Function length limited to 60 lines (ESLint)"]
+    }
+  ]
+}
